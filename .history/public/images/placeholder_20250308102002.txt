@@ -1,0 +1,12 @@
+This folder will contain your images.
+
+Required images:
+- profile.jpg: Your profile picture for the hero section (recommended size: 500x500px)
+
+Project images (in the /images/projects/ subfolder):
+- ecommerce.jpg: E-commerce project screenshot
+- taskapp.jpg: Task management app screenshot
+- portfolio.jpg: Portfolio website screenshot
+- weather.jpg: Weather app screenshot
+
+Replace these placeholder files with your actual images. 
