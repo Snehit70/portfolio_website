@@ -1,126 +1,90 @@
-'use client';
+// Animation variants for Framer Motion
 
-/**
- * Collection of Framer Motion variants for consistent animations throughout the site
- */
-
-// Fade In animation variants
-export const fadeIn = (direction, type, delay, duration) => ({
-  hidden: {
-    x: direction === 'left' ? 80 : direction === 'right' ? -80 : 0,
-    y: direction === 'up' ? 80 : direction === 'down' ? -80 : 0,
-    opacity: 0,
-  },
-  show: {
-    x: 0,
-    y: 0,
-    opacity: 1,
-    transition: {
-      type,
-      delay,
-      duration,
-      ease: 'easeOut',
+export const fadeIn = (direction, delay) => {
+  return {
+    hidden: {
+      y: direction === 'up' ? 40 : direction === 'down' ? -40 : 0,
+      x: direction === 'left' ? 40 : direction === 'right' ? -40 : 0,
+      opacity: 0,
     },
-  },
-});
-
-// Stagger container for child animations
-export const staggerContainer = (staggerChildren, delayChildren) => ({
-  hidden: {},
-  show: {
-    transition: {
-      staggerChildren: staggerChildren || 0.15,
-      delayChildren: delayChildren || 0,
+    show: {
+      y: 0,
+      x: 0,
+      opacity: 1,
+      transition: {
+        type: 'tween',
+        duration: 0.8,
+        delay,
+        ease: [0.25, 0.25, 0.25, 0.75],
+      },
     },
-  },
-});
-
-// Text character animation for hero text
-export const textVariant = (delay) => ({
-  hidden: {
-    y: 20,
-    opacity: 0,
-  },
-  show: {
-    y: 0,
-    opacity: 1,
-    transition: {
-      type: 'spring',
-      duration: 1.25,
-      delay,
-    },
-  },
-});
-
-// Zoom animation
-export const zoomIn = (delay, duration) => ({
-  hidden: {
-    scale: 0.8,
-    opacity: 0,
-  },
-  show: {
-    scale: 1,
-    opacity: 1,
-    transition: {
-      type: 'tween',
-      delay,
-      duration,
-      ease: 'easeOut',
-    },
-  },
-});
-
-// Slide In animation
-export const slideIn = (direction, type, delay, duration) => ({
-  hidden: {
-    x: direction === 'left' ? '-100%' : direction === 'right' ? '100%' : 0,
-    y: direction === 'up' ? '100%' : direction === 'down' ? '-100%' : 0,
-  },
-  show: {
-    x: 0,
-    y: 0,
-    transition: {
-      type,
-      delay,
-      duration,
-      ease: 'easeOut',
-    },
-  },
-});
-
-// Floating animation for UI elements
-export const floatingAnimation = {
-  animate: {
-    y: [0, -10, 0],
-    transition: {
-      duration: 3,
-      repeat: Infinity,
-      repeatType: 'loop',
-      ease: 'easeInOut',
-    },
-  },
+  };
 };
 
-// Page transition for route changes
-export const pageVariants = {
-  initial: {
-    opacity: 0,
-    y: 20,
-  },
-  animate: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.6,
-      ease: [0.6, -0.05, 0.01, 0.99],
+export const staggerContainer = (staggerChildren, delayChildren) => {
+  return {
+    hidden: {},
+    show: {
+      transition: {
+        staggerChildren,
+        delayChildren: delayChildren || 0,
+      },
     },
-  },
-  exit: {
-    opacity: 0,
-    y: -20,
-    transition: {
-      duration: 0.4,
-      ease: [0.6, -0.05, 0.01, 0.99],
+  };
+};
+
+export const textVariant = (delay) => {
+  return {
+    hidden: {
+      y: 50,
+      opacity: 0,
     },
-  },
+    show: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        type: 'spring',
+        duration: 1.25,
+        delay,
+      },
+    },
+  };
+};
+
+export const slideIn = (direction, type, delay, duration) => {
+  return {
+    hidden: {
+      x: direction === 'left' ? '-100%' : direction === 'right' ? '100%' : 0,
+      y: direction === 'up' ? '100%' : direction === 'down' ? '100%' : 0,
+    },
+    show: {
+      x: 0,
+      y: 0,
+      transition: {
+        type,
+        delay,
+        duration,
+        ease: 'easeOut',
+      },
+    },
+  };
+};
+
+export const zoomIn = (delay, duration) => {
+  return {
+    hidden: {
+      scale: 0,
+      opacity: 0,
+    },
+    show: {
+      scale: 1,
+      opacity: 1,
+      transition: {
+        type: 'tween',
+        delay,
+        duration,
+        ease: 'easeOut',
+      },
+    },
+  };
 }; 

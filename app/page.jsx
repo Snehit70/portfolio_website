@@ -12,7 +12,7 @@ const LoadingSpinner = () => (
 // Dynamic imports with error boundaries and suspense
 const Hero = dynamic(() => import('@/components/Hero'), {
   loading: () => <LoadingSpinner />,
-  ssr: true
+  ssr: false
 });
 
 const About = dynamic(() => import('@/components/About'), {

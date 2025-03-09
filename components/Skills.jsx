@@ -5,7 +5,6 @@ import { SiPython, SiJavascript, SiPandas, SiScikitlearn, SiTensorflow, SiJupyte
 import { TbBrandMysql } from 'react-icons/tb';
 import { BsBarChartFill } from 'react-icons/bs';
 import { FaBrain } from 'react-icons/fa';
-import { useState } from 'react';
 
 // Simplified approach without the wrapper component
 const skills = [
@@ -46,105 +45,82 @@ const skills = [
   }
 ];
 
-// Progress bar component with animation
-const SkillBar = ({ name, level, icon: Icon, iconColor }) => {
-  return (
-    <div className="mb-3">
-      <div className="flex items-center justify-between mb-1">
-        <div className="flex items-center gap-2">
-          {Icon && <Icon style={{ color: iconColor }} className="text-lg" />}
-          <span className="text-sm font-medium">{name}</span>
-        </div>
-        <span className="text-xs font-semibold">{level}%</span>
-      </div>
-      <div className="h-2 w-full bg-light-200 dark:bg-dark-700 rounded-full overflow-hidden">
-        <motion.div 
-          className="h-full bg-gradient-to-r from-primary-500 to-primary-600 dark:from-primary-600 dark:to-primary-400"
-          initial={{ width: 0 }}
-          whileInView={{ width: `${level}%` }}
-          transition={{ duration: 1, ease: "easeOut" }}
-          viewport={{ once: true }}
-        />
-      </div>
-    </div>
-  );
-};
-
 export default function Skills() {
-  const [activeCategory, setActiveCategory] = useState(skills[0].title);
-
   return (
     <section id="skills" className="section relative overflow-hidden">
       {/* Background decoration */}
-      <div className="absolute w-full max-w-[500px] h-[500px] bg-primary-600/5 dark:bg-primary-600/10 rounded-full blur-3xl -top-64 -left-44 z-0"></div>
+      <div className="absolute w-full max-w-[600px] h-[600px] bg-primary-600/5 dark:bg-primary-600/10 rounded-full blur-3xl top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 z-0"></div>
       
       <div className="container relative z-10">
-        <motion.div 
+        <motion.div
+          className="text-center max-w-3xl mx-auto mb-12"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
           viewport={{ once: true }}
-          className="text-center mb-12"
+          transition={{ duration: 0.5 }}
         >
-          <h2 className="text-3xl md:text-4xl font-bold font-heading mb-4">My Skills</h2>
-          <p className="text-dark-400 dark:text-light-500 max-w-2xl mx-auto">
-            Technical expertise in programming, data science, and machine learning
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">Technical Skills</h2>
+          <div className="w-20 h-1 bg-gradient-to-r from-primary-600 to-secondary-500 mx-auto mb-6"></div>
+          <p className="text-lg text-dark-600 dark:text-light-300">
+            My current skill set and technologies I'm actively learning and improving.
           </p>
         </motion.div>
-        
-        {/* Skills category tabs */}
-        <div className="flex flex-wrap justify-center gap-3 mb-10">
-          {skills.map((category) => (
-            <motion.button
+
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {skills.map((category, categoryIndex) => (
+            <motion.div
               key={category.title}
-              className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 
-                ${activeCategory === category.title 
-                  ? 'bg-primary-600 text-white shadow-md' 
-                  : 'bg-light-100 dark:bg-dark-800 hover:bg-light-200 dark:hover:bg-dark-700 text-dark-600 dark:text-light-400'
-                }`}
-              onClick={() => setActiveCategory(category.title)}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <div className="flex items-center gap-2">
-                <category.icon className="text-lg" />
-                <span>{category.title}</span>
-              </div>
-            </motion.button>
-          ))}
-        </div>
-        
-        {/* Display selected category */}
-        {skills.map((category) => (
-          <div key={category.title} className={activeCategory === category.title ? 'block' : 'hidden'}>
-            <motion.div 
+              className="glass-card p-6"
               initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.3 }}
-              className="max-w-3xl mx-auto"
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: categoryIndex * 0.1 }}
             >
-              <div className="mb-6 text-center">
-                <span className="text-primary-600 dark:text-primary-400 text-sm font-semibold">{category.description}</span>
-                <p className="text-dark-600 dark:text-light-300 mt-2">{category.highlight}</p>
-              </div>
-              
-              <div className="bg-light-50 dark:bg-dark-800 rounded-xl shadow-lg p-6 md:p-8">
-                <div className="grid gap-5 md:grid-cols-2">
-                  {category.skills.map((skill) => (
-                    <SkillBar
-                      key={skill.name}
-                      name={skill.name}
-                      level={skill.level}
-                      icon={skill.icon}
-                      iconColor={skill.iconColor}
-                    />
-                  ))}
+              <div className="flex items-center gap-3 mb-4">
+                <div className="p-2 rounded-lg bg-gradient-to-r from-primary-500/10 to-secondary-500/10 dark:from-primary-500/20 dark:to-secondary-500/20">
+                  {category.icon && <category.icon className="w-6 h-6" />}
+                </div>
+                <div>
+                  <h3 className="text-xl font-semibold mb-1">{category.title}</h3>
+                  <p className="text-sm text-dark-600 dark:text-light-300">{category.description}</p>
                 </div>
               </div>
+
+              <p className="text-sm text-primary-600 dark:text-primary-400 mb-6 font-medium">
+                {category.highlight}
+              </p>
+
+              <div className="space-y-4">
+                {category.skills.map((skill, index) => (
+                  <motion.div
+                    key={skill.name}
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: index * 0.1 }}
+                  >
+                    <div className="flex items-center justify-between mb-2">
+                      <div className="flex items-center gap-2">
+                        {skill.icon && <skill.icon className="text-xl" style={{ color: skill.iconColor }} />}
+                        <span className="font-medium">{skill.name}</span>
+                      </div>
+                      <span className="text-sm text-dark-600 dark:text-light-300">{skill.level}%</span>
+                    </div>
+                    <div className="h-2 bg-light-200 dark:bg-dark-700 rounded-full overflow-hidden">
+                      <motion.div
+                        className="h-full bg-gradient-to-r from-primary-600 to-secondary-500"
+                        initial={{ width: 0 }}
+                        whileInView={{ width: `${skill.level}%` }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 1, ease: "easeOut" }}
+                      />
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
             </motion.div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </section>
   );
